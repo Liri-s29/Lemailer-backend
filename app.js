@@ -64,6 +64,6 @@ app.post("/send-mail", upload.single("file"), async (req, res) => {
 	}
 });
 
-app.listen(3009, () => {
-	console.log("Server is running on port 3001");
+app.listen(process.env.PORT || 3001, () => {
+	console.log(`Server is running on port ${process.env.PORT}`);
 });
