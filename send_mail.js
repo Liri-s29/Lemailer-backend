@@ -7,7 +7,6 @@ function sleep(ms) {
 async function sendMail(auth, emailData) {
 	try {
 		const gmail = google.gmail({ version: "v1", auth });
-		console.log(emailData);
 		for (let data of emailData) {
 			const raw = makeBody(data.Email, "me", data.Subject, createEmailBody(data));
 			const encodedMessage = Buffer.from(raw).toString("base64").replace(/\+/g, "-").replace(/\//g, "_");
