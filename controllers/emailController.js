@@ -15,7 +15,7 @@ exports.sendEmails = async (req, res) => {
 	const { file, attachment } = req.files;
 	if (!file) {
 		await emptyUploads();
-		return res.status(400).json({ error: "No file uploaded" });
+		return res.status(400).json("No file uploaded");
 	}
 	try {
 		const gmail = google.gmail({ version: "v1", auth: oAuth2Client });
@@ -42,7 +42,6 @@ exports.sendEmails = async (req, res) => {
 						raw: encodedMessage,
 					},
 				});
-				console.log("Email sent to:", data.Email);
 
 				// Create and save a new Email document
 
@@ -53,15 +52,15 @@ exports.sendEmails = async (req, res) => {
 			} catch (err) {
 				console.log("Failed to send email:", err);
 				await emptyUploads();
-				return res.status(500).json({ error: "Failed to send email" });
+				return res.status(500).json("Failed to send email");
 			}
 		}
 		await emptyUploads();
-		return res.status(200).json({ message: "Emails sent successfully" });
+		return res.status(200).json("Emails sent successfully");
 	} catch (error) {
 		await emptyUploads();
 		console.log("Error sending emails:", error);
-		return res.status(500).json({ error: "Error sending emails" });
+		return res.status(500).json("Error sending emails");
 	}
 };
 
