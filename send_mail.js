@@ -56,10 +56,8 @@ function createEmailBody(data) {
 	// Modify the body as per your needs
 	return `
     <p>Dear ${data["Recipient Name"]},</p>
-    <p>${data["Body 1"]}</p>
-    <p>${data["Body 2"]}</p>
-    <p>${data["Body 3"]}</p>
-    <p>Regards,<br>${data["Sender Name"]}</p>
+    <p>${data["Body"]}</p>
+    <p>Best Regards,<br>${data["Sender Name"]}</p>
   `;
 }
 
