@@ -17,7 +17,7 @@ async function sendMail(auth, emailData) {
 						raw: encodedMessage,
 					},
 				});
-				console.log("Email sent to:", data.Email);
+				// console.log("Email sent to:", data.Email);
 				// Wait for 5 seconds before sending the next email
 				await sleep(5000);
 			} catch (err) {

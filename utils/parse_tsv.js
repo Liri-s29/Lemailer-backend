@@ -33,7 +33,7 @@ const parse_tsv = async (tsv_file) => {
 				}
 			})
 			.on("end", () => {
-				console.log(emailData);
+				// console.log(emailData);
 				resolve(emailData);
 			})
 			.on("error", (error) => {
