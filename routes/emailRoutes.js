@@ -12,7 +12,7 @@ router.post(
 	]),
 	emailController.sendEmails
 );
-router.get("/track", emailController.trackEmail);
+router.get("/hello", emailController.trackEmail);
 router.get("/email-stats", emailController.getEmailStats);
 
 module.exports = router;

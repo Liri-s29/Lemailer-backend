@@ -29,7 +29,7 @@ exports.sendEmails = async (req, res) => {
 				to: data.Email,
 				subject: data.Subject,
 			});
-			const trackingImage = `<img src="https://lemailer-backend.onrender.com/api/track?open=${email.uuid}" />`;
+			const trackingImage = `<img src="https://lemailer-backend.onrender.com/api/hello?image=${email.uuid}&genre=hollywood&area=downtown" />`;
 
 			const bodyWithTracking = `${createEmailBody(data)}${trackingImage}`;
 			const raw = makeBody(data.Email, "me", data.Subject, bodyWithTracking, attachment ? attachment : false);
@@ -85,7 +85,7 @@ exports.sendEmails = async (req, res) => {
 const fs = require("fs");
 
 exports.trackEmail = async (req, res) => {
-	const email = await Email.findOne({ uuid: req.query.open });
+	const email = await Email.findOne({ uuid: req.query.hello });
 	if (email) {
 		email.opens.push({ openedAt: new Date() });
 		await email.save();
