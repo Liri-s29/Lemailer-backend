@@ -108,12 +108,12 @@ exports.trackEmail = async (req, res) => {
 			png.data[idx] = red;
 			png.data[idx + 1] = green;
 			png.data[idx + 2] = blue;
-			png.data[idx + 3] = 255; // alpha (fully opaque)
+			png.data[idx + 3] = 1; // alpha (fully opaque)
 		}
 	}
 
 	res.writeHead(200, {
-		"Content-Type": "image/jpg",
+		"Content-Type": "image/png",
 	});
 	png.pack().pipe(res);
 };
