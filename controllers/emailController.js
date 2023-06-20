@@ -6,7 +6,7 @@ const { createEmailBody, makeBody } = require("../utils/create_email_body");
 const { google } = require("googleapis");
 const uuid = require("uuid");
 const sleep = require("../utils/sleep");
-const { PNG } = require('pngjs');
+const { PNG } = require("pngjs");
 
 const oAuth2Client = new OAuth2Client();
 
@@ -100,12 +100,14 @@ exports.trackEmail = async (req, res) => {
 		for (let x = 0; x < png.width; x++) {
 			let idx = (png.width * y + x) << 2;
 
-			// Generate a random color near transparent
-			let color = 255 * Math.random() * 0.1;
+			// Generate a random color near transparent for each pixel
+			let red = 255 * Math.random() * 0.1;
+			let green = 255 * Math.random() * 0.1;
+			let blue = 255 * Math.random() * 0.1;
 
-			png.data[idx] = color; // red
-			png.data[idx + 1] = color; // green
-			png.data[idx + 2] = color; // blue
+			png.data[idx] = red;
+			png.data[idx + 1] = green;
+			png.data[idx + 2] = blue;
 			png.data[idx + 3] = 255; // alpha (fully opaque)
 		}
 	}
