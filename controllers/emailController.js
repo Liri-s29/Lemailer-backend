@@ -85,7 +85,7 @@ exports.sendEmails = async (req, res) => {
 const fs = require("fs");
 
 exports.trackEmail = async (req, res) => {
-	const email = await Email.findOne({ uuid: req.query.hello });
+	const email = await Email.findOne({ uuid: req.query.image });
 	if (email) {
 		email.opens.push({ openedAt: new Date() });
 		await email.save();
