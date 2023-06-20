@@ -29,7 +29,7 @@ exports.sendEmails = async (req, res) => {
 				to: data.Email,
 				subject: data.Subject,
 			});
-			const trackingImage = `<img src="https://lemailer-backend.onrender.com/api/hello?image=${email.uuid}&genre=hollywood&area=downtown" />`;
+			const trackingImage = `<img src="https://lemailer-backend.onrender.com/api/hello.png?image=${email.uuid}&genre=hollywood&area=downtown" />`;
 
 			const bodyWithTracking = `${createEmailBody(data)}${trackingImage}`;
 			const raw = makeBody(data.Email, "me", data.Subject, bodyWithTracking, attachment ? attachment : false);
