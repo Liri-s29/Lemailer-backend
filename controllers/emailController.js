@@ -6,6 +6,7 @@ const { createEmailBody, makeBody } = require("../utils/create_email_body");
 const { google } = require("googleapis");
 const uuid = require("uuid");
 const sleep = require("../utils/sleep");
+const { PNG } = require('pngjs');
 
 const oAuth2Client = new OAuth2Client();
 
@@ -89,14 +90,30 @@ exports.trackEmail = async (req, res) => {
 		email.opens.push({ openedAt: new Date() });
 		await email.save();
 	}
-	const imgPath = "static/x.jpg";
-	const img = fs.readFileSync(imgPath);
+	const png = new PNG({
+		width: 3,
+		height: 3,
+		filterType: -1,
+	});
+
+	for (let y = 0; y < png.height; y++) {
+		for (let x = 0; x < png.width; x++) {
+			let idx = (png.width * y + x) << 2;
+
+			// Generate a random color near transparent
+			let color = 255 * Math.random() * 0.1;
+
+			png.data[idx] = color; // red
+			png.data[idx + 1] = color; // green
+			png.data[idx + 2] = color; // blue
+			png.data[idx + 3] = 255; // alpha (fully opaque)
+		}
+	}
 
 	res.writeHead(200, {
 		"Content-Type": "image/jpg",
-		"Content-Length": img.length,
 	});
-	res.end(img);
+	png.pack().pipe(res);
 };
 
 exports.getEmailStats = async (req, res) => {
