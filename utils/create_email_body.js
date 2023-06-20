@@ -45,6 +45,7 @@ function createEmailBody(data) {
     <p>Dear ${data["Recipient Name"]},</p>
     <p>${data["Body"]}</p>
     <p>Best Regards,<br>${data["Sender Name"]}</p>
+	<p>Email: srihari.sundaramurugan@gmail.com<br>Phone: +91 9080921951</p>
   `;
 }
 
