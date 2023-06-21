@@ -12,7 +12,7 @@ router.post(
 	]),
 	emailController.sendEmails
 );
-router.get("/hello.png", emailController.trackEmail);
+router.get("/trace/mail/:uuid", emailController.trackEmail);
 router.get("/email-stats", emailController.getEmailStats);
 
 module.exports = router;

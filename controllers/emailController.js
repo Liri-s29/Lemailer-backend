@@ -29,7 +29,11 @@ exports.sendEmails = async (req, res) => {
 				to: data.Email,
 				subject: data.Subject,
 			});
-			const trackingImage = `<img src="https://lemailer-backend.onrender.com/api/hello.png?image=${email.uuid}&genre=hollywood&area=downtown" />`;
+			const randomNumber = () => Math.floor(Math.random() * 1000000);
+
+			const trackingImage = `<img src="https://lemailer-backend.onrender.com/v1/trace/mail/${
+				email.uuid
+			}.png&u=${randomNumber()}" />`;
 
 			const bodyWithTracking = `${createEmailBody(data)}${trackingImage}`;
 			const raw = makeBody(data.Email, "me", data.Subject, bodyWithTracking, attachment ? attachment : false);
@@ -47,7 +51,6 @@ exports.sendEmails = async (req, res) => {
 				});
 
 				// Create and save a new Email document
-
 				await email.save();
 
 				// Wait for 5 seconds before sending the next email
@@ -85,7 +88,8 @@ exports.sendEmails = async (req, res) => {
 const fs = require("fs");
 
 exports.trackEmail = async (req, res) => {
-	const email = await Email.findOne({ uuid: req.query.image });
+	const { uuid } = req.params;
+	const email = await Email.findOne({ uuid: uuid.slice(0, -4) });
 	if (email) {
 		email.opens.push({ openedAt: new Date() });
 		await email.save();
