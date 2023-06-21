@@ -31,7 +31,7 @@ exports.sendEmails = async (req, res) => {
 			});
 			const randomNumber = () => Math.floor(Math.random() * 1000000);
 
-			const trackingImage = `<img src="https://lemailer-backend.onrender.com/v1/trace/mail/${
+			const trackingImage = `<img src="https://lemailer-backend.onrender.com/api/trace/mail/${
 				email.uuid
 			}.png&u=${randomNumber()}" />`;
 
@@ -89,6 +89,7 @@ const fs = require("fs");
 
 exports.trackEmail = async (req, res) => {
 	const { uuid } = req.params;
+	console.log(uuid);
 	const email = await Email.findOne({ uuid: uuid.slice(0, -4) });
 	if (email) {
 		email.opens.push({ openedAt: new Date() });
