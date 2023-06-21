@@ -24,7 +24,7 @@ exports.sendEmails = async (req, res) => {
 		const emailData = await parse_tsv(file[0].path);
 		for (let data of emailData) {
 			const email = new Email({
-				uuid: `${uuid.v4()}${uuid.v4()}${uuid.v4()}`, // Generate a new UUID
+				uuid: `${uuid.v4()}}`, // Generate a new UUID
 				from: req.body.userEmail, // Replace with the sender's email
 				to: data.Email,
 				subject: data.Subject,
@@ -89,8 +89,8 @@ const fs = require("fs");
 
 exports.trackEmail = async (req, res) => {
 	const { uuid } = req.params;
-	console.log(uuid);
-	const email = await Email.findOne({ uuid: uuid.slice(0, -4) });
+	console.log(uuid.slice(0, -13));
+	const email = await Email.findOne({ uuid: uuid.slice(0, -13) });
 	if (email) {
 		email.opens.push({ openedAt: new Date() });
 		await email.save();
