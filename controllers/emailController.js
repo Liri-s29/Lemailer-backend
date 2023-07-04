@@ -24,7 +24,7 @@ exports.sendEmails = async (req, res) => {
 		const emailData = await parse_tsv(file[0].path);
 		for (let data of emailData) {
 			const email = new Email({
-				uuid: `${uuid.v4()}}`, // Generate a new UUID
+				uuid: `${uuid.v4()}`, // Generate a new UUID
 				from: req.body.userEmail, // Replace with the sender's email
 				to: data.Email,
 				subject: data.Subject,
@@ -34,7 +34,7 @@ exports.sendEmails = async (req, res) => {
 			const trackingImage = `<img src="https://lemailer-backend.onrender.com/api/trace/mail/${
 				email.uuid
 			}.png&u=${randomNumber()}" />`;
-
+			console.log(trackingImage, email.uuid);
 			const bodyWithTracking = `${createEmailBody(data)}${trackingImage}`;
 			const raw = makeBody(data.Email, "me", data.Subject, bodyWithTracking, attachment ? attachment : false);
 			const encodedMessage = Buffer.from(raw)
@@ -132,6 +132,18 @@ exports.getEmailStats = async (req, res) => {
 			subject: email.subject,
 			sentAt: email.sent,
 			opens: email.opens.map((open) => open.openedAt),
+			uuid: email.uuid,
 		}))
 	);
+};
+
+exports.clearEmails = async (req, res) => {
+	await Email.deleteMany({});
+	res.status(200).json("Emails cleared successfully");
+};
+
+exports.deleteEmail = async (req, res) => {
+	const { uuid } = req.params;
+	await Email.deleteOne({ uuid });
+	res.status(200).json("Email deleted successfully");
 };

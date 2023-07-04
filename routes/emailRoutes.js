@@ -14,5 +14,7 @@ router.post(
 );
 router.get("/trace/mail/:uuid", emailController.trackEmail);
 router.get("/email-stats", emailController.getEmailStats);
+router.get("/clear", emailController.clearEmails);
+router.get("/clear-mail/:uuid", emailController.deleteEmail);
 
 module.exports = router;
